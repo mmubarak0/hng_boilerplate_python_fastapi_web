@@ -100,4 +100,4 @@ async def exception(request: Request, exc: Exception):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", port=9000)
+    uvicorn.run("main:app", port=9000, host='127.0.0.1')
