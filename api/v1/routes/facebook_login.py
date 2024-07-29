@@ -12,7 +12,7 @@ from api.v1.models import *
 
 fb_auth = APIRouter(prefix="/auth", tags=["Authentication"])
 
-@fb_auth.post("/facebook-consent")
+@fb_auth.get("/facebook-consent")
 async def consent():
     response = fb_user_service.generate_facebook_url(redirect_url="facebook-consent-handler")
     return RedirectResponse(response)
