@@ -137,5 +137,17 @@ class FbUserService(Service):
         """Generate random email."""
         return f"{uuid7()}@gmail.com"
 
+    def generate_facebook_url(self, redirect_url):
+        link = (
+            "https://www.facebook.com/v20.0/dialog/oauth?"
+            + "client_id="
+            + self.__clientId
+            + "&redirect_uri="
+            + str(redirect_url)
+            + "&state="
+            + "{state123}"
+        )
+        return link
+
 
 fb_user_service = FbUserService()

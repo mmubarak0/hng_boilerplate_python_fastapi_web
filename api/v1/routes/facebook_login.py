@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from api.db.database import get_db
 from typing import Annotated
@@ -11,6 +12,14 @@ from api.v1.models import *
 
 fb_auth = APIRouter(prefix="/auth", tags=["Authentication"])
 
+@fb_auth.post("/facebook-consent")
+async def consent():
+    response = fb_user_service.generate_facebook_url(redirect_url="facebook-consent-handler")
+    return RedirectResponse(response)
+
+@fb_auth.get("/facebook-consent-handler")
+async def consent_handler(query: dict):
+    print(query)
 
 @fb_auth.post("/facebook-login")
 async def facebook_login(request: OAuthToken, db: Annotated[Session, Depends(get_db)]):
